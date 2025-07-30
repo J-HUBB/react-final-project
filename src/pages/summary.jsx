@@ -1,10 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Nav from "../components/nav";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const Summary = () => {
     const { imdbID } = useParams();
     console.log(imdbID);
+    const [movies, setMovies] = useState([]);
+
+   async function getSummary() {
+      const { data } = await axios.get(`https://www.omdbapi.com/?apikey=536c8bf5&i=${imdbID}`);
+      setMovies(data);
+     }
+   
+     useEffect(() => {
+       getSummary();
+     }, []);
+
   return (
     <>
        <Nav />
@@ -17,15 +29,15 @@ const Summary = () => {
             </div>
             <div className="movie__selected">
               <figure className="movie__selected--figure">
-                <img src={`$`} alt="" className="movie__selected--img" />
+                <img src={''} alt="" className="movie__selected--img" />
               </figure>
               <div className="movie__selected--description">
-                <h2 className="movie__selected--title">{`$`}</h2>
+                <h2 className="movie__selected--title">{``}</h2>
                 <div className="movie__selected--price">
                 </div>
                 <div className="movie__plot">
                   <h3 className="movie__plot--title">Plot</h3>
-                  <p className="movie__plot--para">{`$`}
+                  <p className="movie__plot--para">{``}
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Molestiae fuga ipsum culpa, aliquid cumque in assumenda
                     ratione numquam? Nesciunt nemo adipisci eius iure ratione

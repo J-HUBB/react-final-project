@@ -32,14 +32,6 @@ const Home = (props) => {
     }
   }, []);
 
-  /*async function getSummary() {
-   const { data } = await axios.get("https://jsonplaceholder.typicode.com/users");
-   setMovies(data);
-  }
-
-  useEffect(() => {
-    getUsers();
-  }, []);*/
 
   const handleSearch = () => {
     if (searchTerm.trim()) {

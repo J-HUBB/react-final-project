@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const MovieCard = ({ movie }) => {
   const { Title, Year, Poster, imdbID } = movie;
   const navigate = useNavigate();
+  const [movies, setMovies] = useState([]);
 
   return (
       <div className="movie" key={movie.imdbID} onClick={() => navigate(`${movie.imdbID}`)}>
