@@ -31,6 +31,10 @@ h1 {
   z-index: 2;
 }
 
+h2 {
+  color: white;
+}
+
 a {
   display: inline;
   text-decoration: none;
@@ -38,6 +42,10 @@ a {
 
 .white {
   color: #fff;
+}
+
+p {
+  color: black;
 }
 
 .row {
@@ -254,10 +262,14 @@ input {
 
 .movie-list {
     width: auto;
-    display: none;
+    display: inline-flex;
     flex-wrap: wrap;
     justify-content: center;
     align-content: center;
+}
+
+.movie {
+  width: fit-content;
 }
 
 .movie-card {
@@ -269,6 +281,47 @@ input {
     border-radius: 10px;
   }
 
-  .movie-card__container {
+  .movie-card_container {
     padding: 2px 16px;
   }
+
+ .movie__plot {
+  margin-bottom: 16px;
+ }
+
+ .movie__summary--title {
+  color: white
+ }
+
+ .movie__summary--para {
+  color: white;
+ }
+ 
+ .movie__selected--top {
+    padding: 0 24px;
+    margin-bottom: 8px;
+    font-size: 32px;
+    color: #ef3e3e;
+    display: flex;
+    align-items: center;
+}
+
+.movie__selected--title--top {
+    margin-left: 10px;
+    margin-bottom: 0;
+}
+
+.movie__plot {
+  margin-bottom: 16px;
+}
+
+.movie__plot--title {
+    margin-bottom: 8px;
+    color: white;
+    text-decoration: underline;
+}
+
+.movie__plot--para {
+    margin-bottom: 16px;
+    color: white;
+}

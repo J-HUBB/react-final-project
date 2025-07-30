@@ -1,43 +1,86 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Nav from "../components/nav";
 import Search from "../components/search";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 import MovieCard from "../components/movieCard";
 
 const Home = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const { Title, Year } = useParams();
   const [loading, setLoading] = useState();
   const [movies, setMovies] = useState([]);
+  const [error, setError] = useState(null);
 
-  function onSearch(event) {
-    fetchMovies(searchTerm);
-    const query = event.target.value.trim()
-}
+  const fetchMovies = useCallback(async (searchQuery) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const { data } = await axios.get(
+        `https://www.omdbapi.com/?apikey=536c8bf5&s=${searchQuery}`
+      );
+      if (data.Response === "True") {
+        setMovies(data.Search);
+      } else {
+        setMovies([]);
+        setError(data.Error);
+      }
+    } catch (err) {
+      console.error("Error fetching movies:", err);
+      setError("Failed to fetch movies. Please try again later.");
+      setMovies([]);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
-async function fetchMovies(Title, Year, movie) {
-    const {data} = await axios.get(
-        `https://www.omdbapi.com/?apikey=536c8bf5&s=${Title, movie, Year}`
-    );
-    setMovies(data);
-    setLoading(false);
-    console.log(data);
+  /*async function getSummary() {
+   const { data } = await axios.get("https://jsonplaceholder.typicode.com/users");
+   setMovies(data);
   }
 
   useEffect(() => {
-    fetchMovies(onSearch);
-  }, [searchTerm]);
+    getUsers();
+  }, []);*/
+
+  const handleSearch = () => {
+    if (searchTerm.trim()) {
+      fetchMovies(searchTerm);
+    } else {
+      setMovies([]); // Clear previous results if search term is empty
+      setError("Please enter a movie title to search.");
+    }
+  };
 
   return (
     <>
       <Nav />
-      <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-      <div>
-        {movies?.Search?.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
-        ))}
-        ;
+      <Search
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        onSearch={handleSearch}
+      />
+      <div className="movie-card_container">
+        {/* Conditional rendering adjusted for initial empty state */}
+        {loading && <p>Loading movies...</p>}
+        {error && <p className="error-message">{error}</p>}
+
+        {/* Display message when no search has been performed yet */}
+        {!loading && !error && movies.length === 0 && !searchTerm.trim() && (
+          <p>Start typing a movie title above to search!</p>
+        )}
+
+        {/* Display message when a search was performed but no results found */}
+        {!loading && !error && movies.length === 0 && searchTerm.trim() && (
+          <p>No movies found for "{searchTerm}".</p>
+        )}
+
+        {/* Display movie cards when there are results */}
+        {!loading && !error && movies.length > 0 && (
+          <div className="movie-list">
+            {movies.map((movie) => (
+              <MovieCard key={movie.imdbID} movie={movie} />
+            ))}
+          </div>
+        )}
       </div>
     </>
   );

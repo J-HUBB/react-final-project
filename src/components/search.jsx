@@ -1,9 +1,12 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React from "react";
 
 
-const Search = ({ searchTerm, setSearchTerm}) => {
+const Search = ({ searchTerm, setSearchTerm, onSearch}) => {
+    const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      onSearch(); // Call the onSearch function passed from Home.jsx
+    }
+  };
     
      return (
     <div className="content-wrapper flex-col align-center">
@@ -11,15 +14,15 @@ const Search = ({ searchTerm, setSearchTerm}) => {
       <div className="input-wrap">
         <input
           type="text"
-          id=""
+          id="movie-search-input"
           placeholder="Search by Title or Year"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          onKeyDown={(event) => event.key === 'Enter'}
+          onKeyDown={handleKeyDown}
         />
         <div
           className="search-wrapper flex justify-center align-center"
-          onKeyDown={(event) => event.key === "Enter"}
+          onClick={onSearch}
         >
           <svg
             data-v-390ceb07=""
