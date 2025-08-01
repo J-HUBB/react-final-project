@@ -10,7 +10,7 @@ const Summary = () => {
   const [movie, setMovie] = useState([]);
 
   const recommended = movie.find((m) => +movie.imdbID === +imdbID);
-  console.log(movie.imdbID);
+  console.log(movie);
 
   async function getSummary() {
     const { data } = await axios.get(
@@ -67,7 +67,7 @@ const Summary = () => {
                 </h2>
               </div>
               <div className="movies">
-                {movie
+                {recommended
                   .filter((m) => movie.Rating === 6 && +movie.imdbID !== +imdbID)
                   .slice(0, 4)
                   .map((m) => (
