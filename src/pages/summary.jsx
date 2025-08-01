@@ -10,7 +10,7 @@ const Summary = () => {
   const [movie, setMovie] = useState([]);
 
   const recommended = movie.find((m) => +movie.imdbID === +imdbID);
-  console.log(movie);
+  console.log(recommended);
 
   async function getSummary() {
     const { data } = await axios.get(
