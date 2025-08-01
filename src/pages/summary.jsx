@@ -9,8 +9,8 @@ const Summary = () => {
   console.log(imdbID);
   const [movie, setMovie] = useState([]);
 
-  //movie.find((movie) => +movie.imdbID === +imdbID);
-  
+  const recommended = movie.find((m) => +movie.imdbID === +imdbID);
+  console.log(movie.imdbID);
 
   async function getSummary() {
     const { data } = await axios.get(
@@ -67,12 +67,12 @@ const Summary = () => {
                 </h2>
               </div>
               <div className="movies">
-              { /* {movie
-                  .filter((movie) => movie.Rating === 6 && +movie.imdbID !== +imdbID)
+                {movie
+                  .filter((m) => movie.Rating === 6 && +movie.imdbID !== +imdbID)
                   .slice(0, 4)
-                  .map((movie) => (
+                  .map((m) => (
                     <MovieCard movie={movie} key={movie.imdbID} />
-                  ))}*/}
+                  ))}
               </div>
             </div>
           </div>
