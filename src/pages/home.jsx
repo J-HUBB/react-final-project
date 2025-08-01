@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import Nav from "../components/nav";
 import Search from "../components/search";
 import axios from "axios";
 import MovieCard from "../components/movieCard";
 
-const Home = (props) => {
+const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState();
   const [movies, setMovies] = useState([]);

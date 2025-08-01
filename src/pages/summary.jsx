@@ -1,74 +1,85 @@
 import React, { useEffect, useState } from "react";
 import Nav from "../components/nav";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import MovieCard from "../components/movieCard";
 
 const Summary = () => {
-    const { imdbID } = useParams();
-    console.log(imdbID);
-    const [movies, setMovies] = useState([]);
+  const { imdbID } = useParams();
+  console.log(imdbID);
+  const [movie, setMovie] = useState([]);
 
-   async function getSummary() {
-      const { data } = await axios.get(`https://www.omdbapi.com/?apikey=536c8bf5&i=${imdbID}`);
-      setMovies(data);
-     }
-   
-     useEffect(() => {
-       getSummary();
-     }, []);
+  //movie.find((movie) => +movie.imdbID === +imdbID);
+  
+
+  async function getSummary() {
+    const { data } = await axios.get(
+      `https://www.omdbapi.com/?apikey=536c8bf5&i=${imdbID}`
+    );
+    setMovie(data);
+  }
+
+  useEffect(() => {
+    getSummary();
+  });
 
   return (
     <>
-       <Nav />
-       <div id="movies__body">
-      <main id="movies__body">
-        <div className="movies__container">
-          <div className="row">
-            <div className="movie__selected--top">
-                <h2 className="movie__selected--title--top">Movies</h2>
-            </div>
-            <div className="movie__selected">
-              <figure className="movie__selected--figure">
-                <img src={''} alt="" className="movie__selected--img" />
-              </figure>
-              <div className="movie__selected--description">
-                <h2 className="movie__selected--title">{``}</h2>
-                <div className="movie__selected--price">
-                </div>
-                <div className="movie__plot">
-                  <h3 className="movie__plot--title">Plot</h3>
-                  <p className="movie__plot--para">{``}
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Molestiae fuga ipsum culpa, aliquid cumque in assumenda
-                    ratione numquam? Nesciunt nemo adipisci eius iure ratione
-                    architecto voluptate corporis excepturi cumque
-                    necessitatibus.
-                  </p>
-                  <p className="movie__plot--para">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Molestiae fuga ipsum culpa, aliquid cumque in assumenda
-                    ratione numquam? Nesciunt nemo adipisci eius iure ratione
-                    architecto voluptate corporis excepturi cumque
-                    necessitatibus.
-                  </p>
+      <Nav />
+      <div id="movies__body">
+        <main id="movies__body">
+          <div className="movies__container">
+            <div className="row">
+              <div className="movie__selected--top">
+                <Link to="/">
+                  <button className="movie__selected--title--top">Back</button>
+                </Link>
+              </div>
+              <div className="movie__selected">
+                <figure className="movie__selected--figure">
+                  <img
+                    src={movie.Poster}
+                    alt=""
+                    className="movie__selected--img"
+                  />
+                </figure>
+                <div className="movie__selected--description">
+                  <h1 className="movie__selected--title">{movie.Title}</h1>
+                  <div className="movie__plot">
+                    <h2 className="movie__plot--title">Synopsis</h2>
+                    <p className="movie__plot--para">{movie.Plot}</p>
+                  </div>
+                  <h4 className="actors">Starring: {movie.Actors}</h4>
+                  <div className="rated">
+                    <span className="rated-text">Rated:</span> {movie.Rated}{" "}
+                    <span className="rated-text">Rating: </span>
+                    {movie.imdbRating}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className="movies__container">
-          <div className="row">
-            <div className="movie__selected--top">
-              <h2 className="movie__selected--title--top">Recommended Movies</h2>
-            </div>
-            <div className="movies">
+          <div className="movies__container">
+            <div className="row">
+              <div className="movie__selected--top">
+                <h2 className="movie__selected--title--top">
+                  Recommended Movies
+                </h2>
+              </div>
+              <div className="movies">
+              { /* {movie
+                  .filter((movie) => movie.Rating === 6 && +movie.imdbID !== +imdbID)
+                  .slice(0, 4)
+                  .map((movie) => (
+                    <MovieCard movie={movie} key={movie.imdbID} />
+                  ))}*/}
+              </div>
             </div>
           </div>
-        </div>
-      </main>
-    </div>
+        </main>
+      </div>
     </>
   );
-}
+};
 
 export default Summary;
