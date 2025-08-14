@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Nav from "../components/nav";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import MovieCard from "../components/movieCard";
@@ -8,9 +7,16 @@ const Summary = () => {
   const { imdbID } = useParams();
   console.log(imdbID);
   const [movie, setMovie] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const recommended = movie.find((m) => +movie.imdbID === +imdbID);
-  console.log(recommended);
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading();
+    }, 1500);
+  });
+
+  //const recommended = movie.find((m) => +movie.imdbID === +imdbID);
+  //console.log(recommended);
 
   async function getSummary() {
     const { data } = await axios.get(
@@ -25,7 +31,6 @@ const Summary = () => {
 
   return (
     <>
-      <Nav />
       <div id="movies__body">
         <main id="movies__body">
           <div className="movies__container">
@@ -36,30 +41,63 @@ const Summary = () => {
                 </Link>
               </div>
               <div className="movie__selected">
-                <figure className="movie__selected--figure">
-                  <img
-                    src={movie.Poster}
-                    alt=""
-                    className="movie__selected--img"
-                  />
-                </figure>
-                <div className="movie__selected--description">
-                  <h1 className="movie__selected--title">{movie.Title}</h1>
-                  <div className="movie__plot">
-                    <h2 className="movie__plot--title">Synopsis</h2>
-                    <p className="movie__plot--para">{movie.Plot}</p>
-                  </div>
-                  <h4 className="actors">Starring: {movie.Actors}</h4>
-                  <div className="rated">
-                    <span className="rated-text">Rated:</span> {movie.Rated}{" "}
-                    <span className="rated-text">Rating: </span>
-                    {movie.imdbRating}
-                  </div>
-                </div>
+                {loading ? (
+                  <>
+                    <div className="movie-card">
+                      <figure className="movie__selected--figure">
+                        <div className="movie__poster--skeleton" />
+                      </figure>
+                    </div>
+                    <div className="movie__selected--description">
+                      <h1 className="movie__selected--title--skeleton"></h1>
+                      <div className="movie__plot">
+                        <h2 className="movie__plot--title">Synopsis</h2>
+                        <p className="movie__plot--para--skeleton"></p>
+                      </div>
+                      <div className="actors--skeleton" />
+                      <div className="rated--skeleton" />
+                      <div className="rated--skeleton" />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="pic__box">
+                      <img className="bg__image" src={movie.Poster} alt="" />
+                    </div>
+                    <div className="movie-card">
+                      <figure className="movie__selected--figure">
+                        <img
+                          src={movie.Poster}
+                          alt=""
+                          className="movie__selected--img"
+                        />
+                      </figure>
+                    </div>
+                    <div className="movie__selected--description">
+                      <h1 className="movie__selected--title">{movie.Title}</h1>
+                      <div className="movie__plot">
+                        <h2 className="movie__plot--title">Synopsis</h2>
+                        <p className="movie__plot--para">{movie.Plot}</p>
+                      </div>
+                      <h4 className="actor">
+                        <span className="actors">Starring:</span> {movie.Actors}
+                      </h4>
+                      <div className="rated">
+                        <span className="rated-text">Rated:</span> {movie.Rated}
+                        <br></br>
+                        <span className="rated-text">Rating: </span>
+                        {movie.imdbRating}
+                      </div>
+                      <div className="watch">
+                        <button className="watch__btn">Watch Now</button>
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </div>
-          <div className="movies__container">
+          {/*<div className="movies__container">
             <div className="row">
               <div className="movie__selected--top">
                 <h2 className="movie__selected--title--top">
@@ -67,7 +105,7 @@ const Summary = () => {
                 </h2>
               </div>
               <div className="movies">
-                {recommended
+               { /*{recommended
                   .filter((m) => movie.Rating === 6 && +movie.imdbID !== +imdbID)
                   .slice(0, 4)
                   .map((m) => (
@@ -75,7 +113,7 @@ const Summary = () => {
                   ))}
               </div>
             </div>
-          </div>
+          </div>*/}
         </main>
       </div>
     </>

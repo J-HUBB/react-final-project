@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Spinner from "./spinner";
 
 
 const Search = ({ searchTerm, setSearchTerm, onSearch}) => {
+    const [loading, setLoading] = useState(true);
     const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       onSearch(); // Call the onSearch function passed from Home.jsx
     }
   };
     
+useEffect(() => {
+  setTimeout(() => {
+  setLoading(false);
+  }, 1500);                
+});
+
      return (
     <div className="content-wrapper flex-col align-center">
       <h1>Browse Movies</h1>
@@ -20,10 +28,15 @@ const Search = ({ searchTerm, setSearchTerm, onSearch}) => {
           onChange={(e) => setSearchTerm(e.target.value)}
           onKeyDown={handleKeyDown}
         />
+       {loading ? (
+        <Spinner />
+        ) : 
+        (
+       <>   
         <div
           className="search-wrapper flex justify-center align-center"
-          onClick={onSearch}
-        >
+          onClick={onSearch}>
+
           <svg
             data-v-390ceb07=""
             aria-hidden="true"
@@ -43,6 +56,7 @@ const Search = ({ searchTerm, setSearchTerm, onSearch}) => {
             ></path>
           </svg>
         </div>
+        </>)}
       </div>
     </div>
   );
