@@ -6,7 +6,7 @@ import Spinner from "../components/spinner";
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [loading, setLoading] = useState();
+  const [loading, setLoading] = useState(false);
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
 
@@ -42,12 +42,13 @@ const Home = () => {
   };
 
   return (
-    <>
+      <>
+        {loading ? <div className="input-wrap"><Spinner /></div> :
       <Search
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
         onSearch={handleSearch}
-      />
+        />}
       <div className="movie-card_container">
         {/* Conditional rendering adjusted for initial empty state */}
         {error && <p className="error-message">{error}</p>}
@@ -71,9 +72,9 @@ const Home = () => {
         {/* Display movie cards when there are results */}
         {!loading && !error && movies.length > 0 && (
           <div className="movie-list">
-            {new Array(6).fill(0).map((movie) => 
+            {movies.slice(0, 6).map((movie) => (
               <MovieCard key={movie.imdbID} movie={movie} />
-            )}
+            ))}
           </div>
         )}
         <div className="two">
