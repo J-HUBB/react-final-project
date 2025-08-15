@@ -388,8 +388,8 @@ input {
 }
 
 .movie__poster--skeleton {
-  width: 332px;
-  height: 475px;
+  width: 300px;
+  height: 465px;
   border-radius: 10px;
   background-color: rgb(204, 204, 204);
 }
