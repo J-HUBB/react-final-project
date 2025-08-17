@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import MovieCard from "../components/movieCard";
 
 const Summary = () => {
   const { imdbID } = useParams();
@@ -12,7 +11,7 @@ const Summary = () => {
   useEffect(() => {
     setTimeout(() => {
       setLoading();
-    }, 1500);
+    }, 1000);
   });
 
   //const recommended = movie.find((m) => +movie.imdbID === +imdbID);
@@ -49,7 +48,7 @@ const Summary = () => {
                       </figure>
                     </div>
                     <div className="movie__selected--description">
-                      <h1 className="movie__selected--title--skeleton"></h1>
+                      <div className="movie__selected--title--skeleton"></div>
                       <div className="movie__plot">
                         <h2 className="movie__plot--title">Synopsis</h2>
                         <p className="movie__plot--para--skeleton"></p>

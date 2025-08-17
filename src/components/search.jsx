@@ -3,7 +3,7 @@ import Spinner from "./spinner";
 
 
 const Search = ({ searchTerm, setSearchTerm, onSearch}) => {
-    const [loading, setLoading] = useState(true);
+    const [isloading, setisLoading] = useState(true);
     const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       onSearch(); // Call the onSearch function passed from Home.jsx
@@ -12,8 +12,8 @@ const Search = ({ searchTerm, setSearchTerm, onSearch}) => {
     
 useEffect(() => {
   setTimeout(() => {
-  setLoading(false);
-  }, 1500);                
+  setisLoading(false);
+  }, 1000);                
 });
 
      return (
@@ -28,7 +28,7 @@ useEffect(() => {
           onChange={(e) => setSearchTerm(e.target.value)}
           onKeyDown={handleKeyDown}
         />
-       {loading ? (
+       {isloading ? (
         <Spinner />
         ) : 
         (
