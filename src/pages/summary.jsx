@@ -4,7 +4,6 @@ import axios from "axios";
 
 const Summary = () => {
   const { imdbID } = useParams();
-  console.log(imdbID);
   const [movie, setMovie] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -48,7 +47,7 @@ const Summary = () => {
                       </figure>
                     </div>
                     <div className="movie__selected--description">
-                      <div className="movie__selected--title--skeleton"></div>
+                     <h1><div className="movie__selected--title--skeleton"></div></h1>
                       <div className="movie__plot">
                         <h2 className="movie__plot--title">Synopsis</h2>
                         <p className="movie__plot--para--skeleton"></p>

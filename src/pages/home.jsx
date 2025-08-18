@@ -48,8 +48,8 @@ const Home = () => {
 
   return (
     <>
-      {loading && <Search /> ? (
-        loading
+      {<Search /> && loading ? (
+       loading
       ) : (
         <Search
           searchTerm={searchTerm}

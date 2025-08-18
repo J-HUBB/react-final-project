@@ -13,7 +13,7 @@ const Search = ({ searchTerm, setSearchTerm, onSearch}) => {
 useEffect(() => {
   setTimeout(() => {
   setisLoading(false);
-  }, 1000);                
+  }, 1500);                
 });
 
      return (
