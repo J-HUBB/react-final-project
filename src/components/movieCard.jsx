@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const MovieCard = ({ movie }) => {
-  const { Title, Year, Poster,  } = movie;
+  const { Title, Year, Poster } = movie;
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
@@ -24,9 +24,7 @@ const MovieCard = ({ movie }) => {
               <div className="movie-card_container">
                 <h3>
               <div className="movie__title--skeleton"></div></h3>
-              <p>
               <div className="movie__year--skeleton"></div>
-              </p>
               <div className="movie__poster--skeleton" />
             </div>
             </div>

@@ -149,6 +149,10 @@ nav {
   left: 0;
 }
 
+.content-container {
+  position: relative;
+}
+
 .content-wrapper {
   margin: 0 auto;
   width: 100%;
@@ -335,6 +339,7 @@ input {
   z-index: 1;
   display: flex;
   justify-content: center;
+  overflow: hidden;
 }
  
 .hp_movie-selected--img {
