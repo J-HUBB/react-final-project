@@ -82,6 +82,7 @@ nav {
 .nav__logo--img {
   background: transparent;
   cursor: pointer;
+  border-radius: 10px;
 }
 
 .nav__row {
